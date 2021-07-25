@@ -5,7 +5,6 @@
 #define SIMPLEFS_MAGIC 0xDEADCELL
 
 #define SIMPLEFS_SB_BLOCK_NR 0
-
 #define SIMPLEFS_BLOCK_SIZE (1 << 12) /* 4 KiB */
 #define SIMPLEFS_MAX_EXTENTS \
     SIMPLEFS_BLOCK_SIZE / sizeof(struct simplefs_extent)
@@ -92,11 +91,13 @@ struct simplefs_file_ei_block {
     struct simplefs_extent extents[SIMPLEFS_MAX_EXTENTS];
 };
 
+struct simplefs_file {
+    uint32_t inode;
+    char filename[SIMPLEFS_FILENAME_LEN];
+};
+
 struct simplefs_dir_block {
-    struct simplefs_file {
-        uint32_t inode;
-        char filename[SIMPLEFS_FILENAME_LEN];
-    } files[SIMPLEFS_MAX_SUBFILES];
+    struct simplefs_file files[SIMPLEFS_MAX_SUBFILES];
 };
 
 /* superblock functions */
